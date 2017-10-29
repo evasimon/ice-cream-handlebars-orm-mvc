@@ -7,7 +7,7 @@ CREATE TABLE ice_cream (
     id INT(10) AUTO_INCREMENT,
     ice_cream_name VARCHAR(30) NOT NULL,
     devoured BOOLEAN DEFAULT false NOT NULL,
-    date TIMESTAMP NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 );
 
