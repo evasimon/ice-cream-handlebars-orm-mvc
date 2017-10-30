@@ -1,7 +1,36 @@
 // imports express nad ice_cream.js
-var express = require('express');
-var ice_cream = require('../models/ice_cream');
+var iceCream = require('../models/ice_cream');
 
-var app = express();
+module.exports = function (app) {
+    app.get('/', function (req, res) {
+        iceCream.selectAll(function (data) {
+            // console.log(data);
+            var iceCream = data.filter(function (ice_cream) {
+                return ice_cream.devoured === 0;
+            })
+            console.log(iceCream);
+            var iceCreamEaten = data.filter(function (ice_cream) {
+                return ice_cream.devoured === 1;
+            })
+            console.log(iceCreamEaten);
 
-module.exports = app;
+            res.render('index', { ice_cream: iceCream, ice_cream_eaten: iceCreamEaten });
+        })
+    });
+
+    app.post('/', function (req, res) {
+        var newIceCream = req.body.ice_cream;
+        iceCream.insertOne(newIceCream, function () {
+            res.redirect('/')
+        })
+    });
+
+    app.put("/:id", function (req, res) {
+        var idValue = req.params.id;
+        // console.log(req.method, req.body, req.path);
+        console.log(idValue);
+        iceCream.updateOne(idValue, function () {
+            res.status(200).end();
+        });
+    });
+}
