@@ -2,18 +2,24 @@
 
 // requires mysql dependecy
 var mysql = require('mysql');
+var connection;
 
 // sets connection param for database connection
-var connection = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    // sets username
-    user: "root",
-    // sets password
-    password: "",
-    // sets current database
-    database: "ice_cream_db"
-});
+// and hooking the project with JawsDB
+if (process.env.JAWDB_URL) {
+    connection = mysql.createConnection(process.envJAWSDB_URL);
+} else {
+    connection = mysql.createConnection({
+        host: "localhost",
+        port: 3306,
+        // sets username
+        user: "root",
+        // sets password
+        password: "",
+        // sets current database
+        database: "ice_cream_db"
+    });
+}
 
 // makes connection with the database
 connection.connect(function (err) {
