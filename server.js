@@ -3,7 +3,8 @@ var express = require('express');
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
-var iceCreamController = require('./controllers/ice_cream_controller')
+var iceCreamController = require('./controllers/ice_cream_controller');
+var path = require('path');
 
 
 // sets up the Express App
@@ -18,7 +19,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 // serves static files from the css folder
-// app.use('/css', express.static(path.join(__dirname + '/css')));
+app.use('/assets', express.static(path.join(__dirname + '/public/assets')));
 
 iceCreamController(app);
 
